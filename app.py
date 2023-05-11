@@ -1,26 +1,43 @@
 import streamlit as st
-import pandas as pd
-import joblib
+import numpy as np
+import pickle
 
 # Load the trained model
-model = joblib.load('fraud_detection_model.pkl')
+with open('model.pkl', 'rb') as f:
+    model = pickle.load(f)
 
-# Define the interface for the Streamlit app
-st.title('Fraud Detection App')
+# Define a function to predict the probability of fraud
+def predict_fraud(features):
+    prediction = model.predict(features)
+    return prediction
 
-transaction_amount = st.text_input('Transaction Amount')
-merchant_category = st.selectbox('Merchant Category', ['Grocery', 'Entertainment', 'Travel', 'Other'])
-card_type = st.selectbox('Card Type', ['Visa', 'Mastercard', 'American Express'])
+# Create a Streamlit app
+st.title('Credit Card Fraud Detection')
 
-features = pd.DataFrame({
-    'Transaction Amount': [transaction_amount],
-    'Merchant Category': [merchant_category],
-    'Card Type': [card_type]
-})
+# Input features
+st.header('Input Features')
 
-if st.button('Detect Fraud'):
-    prediction = model.predict(features)[0]
-    if prediction == 1:
-        st.error('This transaction is fraudulent')
-    else:
-        st.success('This transaction is not fraudulent')
+# Create a form to collect the input features
+with st.form('fraud_detection_form'):
+    amount = st.number_input('Amount', value=0.0)
+    time = st.number_input('Time', value=0.0)
+    type = st.selectbox('Type', ['Purchase', 'Withdrawal', 'Transfer'])
+    location = st.selectbox('Location', ['Home', 'Work', 'Other'])
+
+# Submit the form
+    submitted = st.form_submit_button("Submit")
+    if submitted:
+    # Collect the input features
+      features = np.array([amount, time, type, location])
+
+    # Predict the probability of fraud
+      probability = predict_fraud(features)
+
+    # Display the results
+      st.write('The probability of fraud is {}%'.format(probability * 100))
+
+    # If the probability is high, then the transaction is likely to be fraudulent.
+      if probability > 0.5:
+          st.write('The transaction is likely to be fraudulent.')
+      else:
+          st.write('The transaction is not likely to be fraudulent.')
