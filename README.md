@@ -22,7 +22,8 @@ AppVersion2
 # Output
 </br>
 
-<img width="297" alt="outCCFD" src="https://github.com/nadprime/CCFDetect/assets/103782863/5b6bf8a5-8282-4c34-a9a2-d3b3fc9a03d1">
+<img width="258" alt="outCCFD" src="https://github.com/nadprime/CCFDetect/assets/103782863/35d85d4f-5a7a-455b-8e15-6643c9fb4127">
+
 </br>
 </br>
 
