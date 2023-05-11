@@ -18,6 +18,7 @@ AppVersion2
 <img width="728" alt="appV2" src="https://github.com/nadprime/CCFDetect/assets/103782863/7f7dc353-91f0-4f3e-aebb-0e95eeb3d309">
 </br>
 </br>
+
 # Output
 </br>
 
